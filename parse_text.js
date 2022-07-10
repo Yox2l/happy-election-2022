@@ -7,11 +7,5 @@ for (const line of lines) {
             HK.push(s.trim())
     }
 }
-for (const h of HK) {
-    // run os command
-    if(h.indexOf('"') > -1) {
-        console.log(`node download.js '${h}' &`)    
-    } else {
-        console.log(`node download.js "${h}" &`)
-    }
-}
+
+fs.writeFileSync('kenest_2022.json', JSON.stringify(HK, null ,2))
