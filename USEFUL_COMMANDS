@@ -1,1 +1,1 @@
-aws s3 sync . s3://election-2022 --profile personal
+aws s3 sync images s3://election-2022 --profile personal
