@@ -15,7 +15,9 @@ const LABEL_TO_HEBREW = {
     "DISGUSTED": "גועל", 
     "FEAR": "פחד", 
     "CONFUSED": "בלבול", 
-    "CALM": "רוגע"
+    "CALM": "רוגע",
+    "name": "שם",
+    "party": "מפלגה",
 }
 const LABEL_TO_COLOR = {
     "HAPPY": "185,70,150", 
@@ -35,9 +37,6 @@ rows.forEach(row => {
 columns.forEach(column => {
     column.label = LABEL_TO_HEBREW[column.label]
 })
-// basicStatTableData.rows = basicStatTableData.rows.reverse()
-
-
 
 const EmotionChart = ({data, showLegend, size}) => {
     if(!data) return null
@@ -88,7 +87,7 @@ const ImagesViewer = ({ data}) => {
                 <img src={image.url} height={200} />
                 <p style={{ 
                     textAlign: "center",
-                }}>{image.url.split('_')[1].split('.')[0]}</p>
+                }}>{image.url.split('_')[1].replace('.png', '')}</p>
             </div>
             
             <div style={{
@@ -101,7 +100,7 @@ const ImagesViewer = ({ data}) => {
 class DatatablePage extends React.Component {
     constructor(props) {
         super(props);
-        let curRow = rows[0]
+        let curRow = rows[Math.floor(Math.random() * rows.length)]
         console.log(window.location.hash)
         if(window.location.hash) {
             const hash = decodeURIComponent(window.location.hash).substring(1)
@@ -110,7 +109,6 @@ class DatatablePage extends React.Component {
         }
         this.state = {
             data: curRow,
-            sortObject: { column: "HAPPY", direction: "asc" },
         }
         global.setData = data => {
             window.location.hash = data.name
@@ -129,10 +127,9 @@ class DatatablePage extends React.Component {
                         bordered
                         small
                         data={basicStatTableData}
-                        entriesOptions={[15]}
+                        entriesOptions={[5, 15, 25, 30, 50]}
                         entries={15}
                         noBottomColumns
-                        onSort={sortObject => this.setState({ sortObject })}
                     />
                 </div>
                 <div className="col-sm" style={{ 
@@ -147,9 +144,10 @@ class DatatablePage extends React.Component {
                     }}>ממוצע רגשות</p> */}
                     <div style={{ 
                         display: "flex",
+                        marginTop: 32,
                         justifyContent: "center",
                     }}>
-                    <EmotionChart data={this.state.data} showLegend={true} sortObject={this.state.sortObject} size={500}/>
+                    <EmotionChart data={this.state.data} showLegend={true} size={350}/>
                     </div>
                     <ImagesViewer data={this.state.data} />
                 </div>

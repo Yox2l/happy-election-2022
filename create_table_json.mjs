@@ -2,6 +2,7 @@
 
 import fs from 'fs'
 
+const nameToParty = JSON.parse(fs.readFileSync('nameToParty.json', 'utf8'))
 
 const ROWS = []
 const folders = fs.readdirSync('images');
@@ -46,6 +47,7 @@ for (const folder of folders) {
         data[i] = Math.round(data[i] * 100) / 100
     }
     data.name = folder
+    data.party = nameToParty[folder]
     ROWS.push(data)
 
 }
@@ -53,14 +55,15 @@ const EMOTION_LIST = [...EMOTION]
 const COLS = [{
     label: 'name',
     field: 'name',
-    sort: 'asc',
+},{
+    label: 'party',
+    field: 'party',
 }]
 
 for(const emotion of EMOTION_LIST) {
     COLS.push({
         label: emotion,
         field: emotion,
-        sort: 'asc',
     })
 }
 
