@@ -47,7 +47,7 @@ for (const folder of folders) {
         data[i] = Math.round(data[i] * 100) / 100
     }
     data.name = folder
-    data.party = nameToParty[folder]
+    data.party = nameToParty[folder] || "Unknown"
     ROWS.push(data)
 
 }
@@ -67,7 +67,7 @@ for(const emotion of EMOTION_LIST) {
     })
 }
 
-fs.writeFileSync('basic-stat/src/basicStatTableData.json', JSON.stringify({
+fs.writeFileSync('basic-stat/src/basicStatTableData_.json', JSON.stringify({
     rows: ROWS,
     columns: COLS,
     imageData

@@ -41,3 +41,26 @@ table.table-sm tr td:first-child {
 body {
 	direction: rtl;
 }
+
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(100%);
+	/* transform: scale(4); */
+	/* width: 80px;
+	height: 80px; */
+}
+.carousel-control-next-icon, .carousel-control-prev-icon {
+	/* width: 80px;
+	height: 80px; */
+	transform: scale(4)
+}
+
+.carousel .carousel-indicators li {
+	background-color: black;
+	margin: 5px;
+	transform: scale(1.25);
+}
+
+.carousel {
+	direction: ltr;
+}
