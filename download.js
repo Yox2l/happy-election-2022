@@ -21,9 +21,7 @@ const downloadFile = async (fileUrl, localFilePath) => {
 
 let activeDownload = 0
 const MAX_ACTIVE_DOWNLOAD = 20
-
 const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 const donwloadImages = async (name) => {
     while (activeDownload >= MAX_ACTIVE_DOWNLOAD) {
         await sleep(1000)
@@ -31,7 +29,6 @@ const donwloadImages = async (name) => {
     activeDownload++
     const search_url = 'https://www.google.com/search?site=&tbm=isch&source=hp&biw=1873&bih=990&' + 'q=' + name;
     console.log(`Running google image search on: ${search_url}`);
-    // return
     const browser = await puppeteer.launch({
         headless: false,
         args: [`--window-size=1920,1080`],
@@ -85,10 +82,9 @@ const donwloadImages = async (name) => {
 
 
 let main = async () => {
-    // for (const name of kenest_2022) {
-    //     donwloadImages(name)
-    // }
-    donwloadImages("חבר הכנסת אלי כהן")
+    for (const name of kenest_2022) {
+        donwloadImages(name)
+    }
 }
 
 main()

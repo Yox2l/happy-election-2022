@@ -4,6 +4,7 @@
   "private": true,
   "// If You want to install mdbreact from our GitLab repository, please replace '5.1.0' with gitURL provided here ->": "git+https://oauth2:<YOUR-TOKEN-GOES-HERE>@git.mdbootstrap.com/mdb/react/re-pro.git",
   "dependencies": {
+    "aws-rum-web": "^1.6.0",
     "mdbreact": "5.1.0",
     "react-chartjs-2": "^4.2.0",
     "react-router-dom": "^5.1.2",

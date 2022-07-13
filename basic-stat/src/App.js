@@ -6,13 +6,48 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const mobileRE = /(android|bb\d+|meego).+mobile|armv7l|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series[46]0|samsungbrowser|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i
+const notMobileRE = /CrOS/
+
+const tabletRE = /android|ipad|playbook|silk/i
+
+function isMobile (opts) {
+  if (!opts) opts = {}
+  let ua = opts.ua
+  if (!ua && typeof navigator !== 'undefined') ua = navigator.userAgent
+  if (ua && ua.headers && typeof ua.headers['user-agent'] === 'string') {
+    ua = ua.headers['user-agent']
+  }
+  if (typeof ua !== 'string') return false
+
+  let result =
+    (mobileRE.test(ua) && !notMobileRE.test(ua)) ||
+    (!!opts.tablet && tabletRE.test(ua))
+
+  if (
+    !result &&
+    opts.tablet &&
+    opts.featureDetect &&
+    navigator &&
+    navigator.maxTouchPoints > 1 &&
+    ua.indexOf('Macintosh') !== -1 &&
+    ua.indexOf('Safari') !== -1
+  ) {
+    result = true
+  }
+
+  return result
+}
+
+const IS_MOBILE = isMobile()
+
 const LABELS = ["HAPPY", "SAD", "ANGRY", "SURPRISED", "DISGUSTED", "FEAR", "CONFUSED", "CALM"]
 const LABEL_TO_HEBREW = {
     "HAPPY": "שמחה", 
     "SAD": "עצבות", 
     "ANGRY": "כעס", 
     "SURPRISED": "הפתעה",
-    "DISGUSTED": "גועל", 
+    "DISGUSTED": "סלידה", 
     "FEAR": "פחד", 
     "CONFUSED": "בלבול", 
     "CALM": "רוגע",
@@ -98,7 +133,6 @@ const UrlToTxt = ({url}) => {
         }}> מקור: </span>
         {source}
     </p>
-    // return `תוצאת חיפוש מספר:${val} מקור:${source}`
 }
 
 
@@ -128,9 +162,6 @@ const ImagesViewer = ({ data}) => {
                             <img height={300} src={image.url} alt="First slide" />
                         </div>
                         <div style={{height:16}} />
-                        {/* <p style={{
-                            direction: "rtl",
-                        }}>{urlToTxt(image.url)}</p> */}
                         <UrlToTxt url={image.url} />
                         <div style={{height:16}} />
                         <div style={{
@@ -175,6 +206,8 @@ class DatatablePage extends React.Component {
         }
         global.setData = data => {
             window.location.hash = data.name
+            const picNode = document.getElementById("pic")
+            window.scrollTo(0, picNode.offsetTop);
             this.setState({ data })
         }
     }
@@ -202,24 +235,29 @@ class DatatablePage extends React.Component {
                         <a href="https://route42.co.il" target="_blank"> route42 </a>
                         .
                     </p>
-                    <div style={{height: 32}} />
+                    <div style={{height: 16}} />
                     <MDBDataTable
                         striped
                         bordered
                         small
                         data={basicStatTableData}
-                        entriesOptions={[10, 15, 20, 25, 30, 50]}
-                        entries={20}
+                        entriesOptions={[5, 10, 15, 20, 25, 30, 50]}
+                        entries={IS_MOBILE ? 5 : 15}
                         noBottomColumns
                     />
+                    <p style={{
+                        // fontStyle: 'italic',
+                        fontWeight: 'bold',
+                        textAlign: "center",
+                    }}>שימו לב שעבור כל רגש בכל תמונה מתקבל ציון בין 0ל 100</p>
                 </div>
-                <div className="col-sm" style={{ 
+                <div className="col-sm" id="pic" style={{ 
                     // backgroundColor: "rgba(0,255,0, 0.1)",
                     marginTop: 32,
                 }}>
-                    <h1 style={{ 
+                    <h2 style={{ 
                         textAlign: "center",
-                    }}>{this.state.data?.name}</h1>
+                    }}>{this.state.data?.name}</h2>
                     <h3 style={{ 
                         textAlign: "center",
                         marginTop: 16
