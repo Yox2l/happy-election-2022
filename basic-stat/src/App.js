@@ -207,11 +207,12 @@ class DatatablePage extends React.Component {
         global.setData = data => {
             window.location.hash = data.name
             const picNode = document.getElementById("pic")
-            window.scrollTo(0, picNode.offsetTop);
+            IS_MOBILE && window.scrollTo(0, picNode.offsetTop);
             this.setState({ data })
         }
     }
     render() {
+        const linkUrl = 'https://www.google.com/search?site=&tbm=isch&source=hp&biw=1873&bih=990&' + 'q=' + this.state.data?.name;
         return <div className="container-fluid">
             <div className="row">
                 <div className="col-sm" style={{ 
@@ -264,12 +265,19 @@ class DatatablePage extends React.Component {
                     }}>ממוצע רגשות</h3>
                     <div style={{ 
                         display: "flex",
-                        marginTop: 8,
-                        justifyContent: "center",
+                        marginTop: 32,
+                        // justifyContent: "center",
+                        flexDirection: "column",
+                        alignItems: "center"
                     }}>
-                        <EmotionChart data={this.state.data} showLegend={true} size={320}/>
+                        <EmotionChart data={this.state.data} showLegend={true} size={480}/>
+                        <a href={linkUrl} target="_blank" style={{ 
+                            textAlign: "center",
+                            marginTop: 48,
+                        }}> קישור לתוצאות החיפוש בגוגל</a>
                     </div>
-                    <ImagesViewer data={this.state.data} />
+                    
+                    {/* <ImagesViewer data={this.state.data} /> */}
                 </div>
             </div>
         </div>

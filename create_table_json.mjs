@@ -18,9 +18,7 @@ for (const folder of folders) {
     const imgData = []
     for (const file of files) {
         if (!file.endsWith('.json')) continue
-        // console.log(`${folder}/${file}`);
         const imageJsonData = JSON.parse(fs.readFileSync(`images/${folder}/${file}`, 'utf8'));
-        // detectFace(`${folder}/${file}`);
         const numberOfFaces = imageJsonData.FaceDetails.length;
         if(numberOfFaces !== 1) continue
         const imageEmotion = {}
