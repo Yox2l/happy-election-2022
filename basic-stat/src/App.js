@@ -233,7 +233,7 @@ class DatatablePage extends React.Component {
                         <a href="https://www.google.com/search?q=%D7%97%D7%91%D7%A8+%D7%9B%D7%A0%D7%A1%D7%AA&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjkueiWofT4AhX2i_0HHQMQC_oQ_AUoAXoECAEQAw&biw=1702&bih=1243&dpr=1" target="_blank"> בחיפוש התמונות של גוגל </a>
                         . 
                         לפרטים נוספים ממולץ לקרוא את הפוסט הטכני בבלוג 
-                        <a href="https://route42.co.il" target="_blank"> route42 </a>
+                        <a href="https://route42.co.il/faces-recognition-and-politics" target="_blank"> route42 </a>
                         .
                     </p>
                     <div style={{height: 16}} />
@@ -274,6 +274,7 @@ class DatatablePage extends React.Component {
                         <a href={linkUrl} target="_blank" style={{ 
                             textAlign: "center",
                             marginTop: 48,
+                            marginBottom: 48,
                         }}> קישור לתוצאות החיפוש בגוגל</a>
                     </div>
                     
