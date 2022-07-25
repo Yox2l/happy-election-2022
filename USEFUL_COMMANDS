@@ -1,1 +1,4 @@
 aws s3 sync images s3://election-2022 --profile personal
+
+
+aws rekognition create-collection --collection-id "kneset24" --profile personal --region "eu-west-1"
