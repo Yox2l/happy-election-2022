@@ -8,7 +8,7 @@ exit_on_failure()
         exit ${exit_code}
     fi
 }
-# npm run build
+npm run build
 exit_on_failure $? "Failure while building react project, did you run 'npm install'?"
 s3_bucket=kneset24.route42.co.il
 echo Synching Build Folder: $s3_bucket...
